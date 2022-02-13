@@ -1,7 +1,16 @@
+import { AssemblyLine } from './components';
+
 function App() {
   return (
     <div id="app">
-      <h1>Hello world</h1>
+      <AssemblyLine
+        stages={[
+          "Idea",
+          "Development",
+          "Testing",
+          "Deployment"
+        ]}
+      />
     </div>
   );
 }
