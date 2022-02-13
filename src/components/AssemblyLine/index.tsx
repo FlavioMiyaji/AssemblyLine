@@ -11,9 +11,9 @@ interface IStage {
   tasks: string[];
 }
 
-export function AssemblyLine({ stages }: Props) {
+export function AssemblyLine({ stages: initStages }: Props) {
   const [newTask, setNewTask] = useState("");
-  const list: IStage[] = stages.map(name => ({ name, tasks: [] }));
+  const [stages, setStages] = useState<IStage[]>(initStages.map(name => ({ name, tasks: [] })));
 
   const handleTask = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewTask(event.target.value);
@@ -21,6 +21,24 @@ export function AssemblyLine({ stages }: Props) {
   }
 
   const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key !== 'Enter') return;
+    event.stopPropagation();
+    setStages(prev => {
+      const state = [...prev];
+      state[0] = {
+        ...state[0],
+        tasks: [newTask, ...state[0].tasks],
+      };
+      return state;
+    });
+    setNewTask("");
+  }
+
+  const moveNext = () => {
+    // TODO
+  }
+
+  const movePrev = () => {
     // TODO
   }
 
@@ -39,15 +57,22 @@ export function AssemblyLine({ stages }: Props) {
         />
       </Header>
       <Stages>
-        {list.map((stage) => (
+        {stages.map((stage) => (
           <Stage data-testid="stage" key={stage.name}>
             <h5>{stage.name}</h5>
             <div data-testid="tasks">
-              {stage.tasks.map((task) => (
-                <Task data-testid="task">
-                  {task}
-                </Task>
-              ))}
+              {stage.tasks.map((task) => {
+                if (!task) return null;
+                return (
+                  <Task
+                    data-testid="task"
+                    onClick={() => moveNext()}
+                    onContextMenu={() => movePrev()}
+                  >
+                    {task}
+                  </Task>
+                );
+              })}
             </div>
           </Stage>
         ))}
