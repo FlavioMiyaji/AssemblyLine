@@ -20,6 +20,10 @@ export function AssemblyLine({ stages }: Props) {
     event.stopPropagation();
   }
 
+  const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    // TODO
+  }
+
   return (
     <Container data-testid="">
       <Header>
@@ -31,6 +35,7 @@ export function AssemblyLine({ stages }: Props) {
           name="new-task"
           value={newTask}
           onChange={handleTask}
+          onKeyPress={handleEnter}
         />
       </Header>
       <Stages>
