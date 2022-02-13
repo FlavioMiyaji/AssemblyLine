@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Container, Header, Stages, Stage, Task } from "./styles";
+import { Container, Header, Stages, Stage, Tasks, Task } from "./styles";
 
 type Props = {
   stages: string[];
@@ -60,7 +60,7 @@ export function AssemblyLine({ stages: initStages }: Props) {
         {stages.map((stage) => (
           <Stage data-testid="stage" key={stage.name}>
             <h5>{stage.name}</h5>
-            <div data-testid="tasks">
+            <Tasks data-testid="tasks">
               {stage.tasks.map((task) => {
                 if (!task) return null;
                 return (
@@ -73,7 +73,7 @@ export function AssemblyLine({ stages: initStages }: Props) {
                   </Task>
                 );
               })}
-            </div>
+            </Tasks>
           </Stage>
         ))}
       </Stages>

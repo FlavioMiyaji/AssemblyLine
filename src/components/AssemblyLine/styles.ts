@@ -14,6 +14,17 @@ export const Stages = styled.div`
   justify-content: space-between;
 `;
 
-export const Stage = styled.div``;
+export const Stage = styled.div`
+  flex: 1;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const Tasks = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export const Task = styled.button``;
