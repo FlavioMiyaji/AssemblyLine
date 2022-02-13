@@ -88,8 +88,15 @@ export function AssemblyLine({ stages: initStages }: Props) {
                 return (
                   <Task
                     data-testid="task"
-                    onClick={() => moveNext(stageIndex, taskIndex)}
-                    onContextMenu={() => movePrev(stageIndex, taskIndex)}
+                    key={task}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      moveNext(stageIndex, taskIndex);
+                    }}
+                    onContextMenu={(e) => {
+                      e.preventDefault();
+                      movePrev(stageIndex, taskIndex);
+                    }}
                   >
                     {task}
                   </Task>
