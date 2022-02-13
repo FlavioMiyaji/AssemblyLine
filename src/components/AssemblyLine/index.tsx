@@ -34,12 +34,34 @@ export function AssemblyLine({ stages: initStages }: Props) {
     setNewTask("");
   }
 
-  const moveNext = () => {
-    // TODO
+  const moveNext = (stageIndex: number, taskIndex: number) => {
+    setStages(prevState => {
+      const state = [...prevState];
+      const task = state[stageIndex].tasks[taskIndex];
+      // Remove from current stage
+      state[stageIndex].tasks = state[stageIndex].tasks.filter((_, i) => i !== taskIndex);
+      if (stageIndex < stages.length - 1) {
+        // add to next
+        const next = stageIndex + 1;
+        state[next].tasks = [task, ...state[next].tasks];
+      }
+      return state;
+    });
   }
 
-  const movePrev = () => {
-    // TODO
+  const movePrev = (stageIndex: number, taskIndex: number) => {
+    setStages(prevState => {
+      const state = [...prevState];
+      const task = state[stageIndex].tasks[taskIndex];
+      // Remove from current stage
+      state[stageIndex].tasks = state[stageIndex].tasks.filter((_, i) => i !== taskIndex);
+      if (stageIndex > 0) {
+        // add to previous
+        const prev = stageIndex - 1;
+        state[prev].tasks = [...state[prev].tasks, task];
+      }
+      return state;
+    });
   }
 
   return (
@@ -57,17 +79,17 @@ export function AssemblyLine({ stages: initStages }: Props) {
         />
       </Header>
       <Stages>
-        {stages.map((stage) => (
+        {stages.map((stage, stageIndex) => (
           <Stage data-testid="stage" key={stage.name}>
             <h5>{stage.name}</h5>
             <Tasks data-testid="tasks">
-              {stage.tasks.map((task) => {
+              {stage.tasks.map((task, taskIndex) => {
                 if (!task) return null;
                 return (
                   <Task
                     data-testid="task"
-                    onClick={() => moveNext()}
-                    onContextMenu={() => movePrev()}
+                    onClick={() => moveNext(stageIndex, taskIndex)}
+                    onContextMenu={() => movePrev(stageIndex, taskIndex)}
                   >
                     {task}
                   </Task>
