@@ -1,6 +1,25 @@
 # AssemblyLine
 Write a React component that is an initial prototype of an organizational tool for personal and business use based on the assembly line concept.
 
+# How to run this project
+
+Clone this project in you workspace:
+```
+git clone https://github.com/FlavioMiyaji/AssemblyLine.git
+```
+Open the new folder and them run the follow commands:
+```
+yarn
+```
+And them to start the project:
+```
+yarn start
+```
+Running testes:
+```
+yarn test
+```
+
 # Task 1
 ## Overview
 Oftentimes, processes can be represented as a series of stages. The concept of an assembly line can be a useful way to organize production logic, list of tasks in varying degrees of completion, or track individuals progressing through a series of milestones.
@@ -21,4 +40,3 @@ Oftentimes, processes can be represented as a series of stages. The concept of a
 - [x] RIGHT-CLICK an assembly item in the first stage will delete it from the assembly line (the task is no longer needed)
 - [x] Task input only creates one task at a time and only adds a newly created task in the first stage.
 - [x] Task should only be moved one stage at a time.
-
